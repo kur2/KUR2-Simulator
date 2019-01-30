@@ -1,0 +1,62 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+
+
+\usepackage[left=2.2 cm,right=2.2 cm,top=1.5cm,bottom=2.0cm]{geometry}
+
+\newcounter{aufgnr}
+
+\begin{document}
+\begin{center}
+\section*{KUR2}
+\subsection*{Kommandoreferenz}
+\end{center}
+
+\hrule
+\vspace{.5cm}
+
+\begin{table}[h]
+\begin{tabular}{l|l|c|l|p{6.85cm}}
+\multicolumn{1}{c|}{\textbf{Domäne}} & \multicolumn{1}{c|}{\textbf{Bezeichnung}} & \multicolumn{1}{c|}{\textbf{Code}} & \multicolumn{1}{c|}{\textbf{Argument}} & \multicolumn{1}{c}{\textbf{Beschreibung}} \\
+\hline
+0 - Fluss & NOOP & 00 & --- & Führt keine Operation aus\\
+& HALT & 01 & --- & Haltebefehl: Signalisiert das Programmende und hält die Maschine an\\
+\hline
+1 - Sprünge & JUMP & 10 & ZIEL & Springt zur Speicheradresse ZIEL\\
+& JUMP=0 & 11 & ZIEL & Springt zur Speicheradresse ZIEL, falls der Akkumulator 0 enthält\\
+& JUMP$\neq$0 & 12 & ZIEL & Springt zur Speicheradresse ZIEL, falls der Akkumulator nicht 0 enthält\\
+& JUMP$>$0 & 13 & ZIEL & Springt zur Speicheradresse ZIEL, falls der Akkumulator einen positiven Wert enthält\\
+& JUMP$<$0 & 14 & ZIEL & Springt zur Speicheradresse ZIEL, falls der Akkumulator einen negativen Wert enthält\\
+\hline
+2 - Daten & NULL & 20 & --- & Lädt den Wert 0 in den Akkumulator\\
+& LOADC & 21 & KONSTANTE & Lädt den Wert KONSTANTE in den Akkumulator\\
+& LOADA & 22 & ADRESSE & Lädt den Wert aus der Speicheradresse ADRESSE in den Akkumulator\\
+& STORE & 23 & ADRESSE & Schreibt den Wert aus dem Akkumulator in die Speicheradresse ADRESSE\\
+\hline
+3 - Addition & ADDC & 30 & KONSTANTE & Addiert zum Wert im Akkumulator den Wert KONSTANTE\\
+& ADDA & 31 & ADRESSE & Addiert zum Wert im Akkumulator den Wert aus der Speicheradresse ADRESSE\\
+\hline
+4 - Subtraktion & SUBC & 40 & KONSTANTE & Subtrahiert vom Wert im Akkumulator den Wert KONSTANTE\\
+& SUBA & 41 & ADRESSE & Subtrahiert vom Wert im Akkumulator den Wert aus der Speicheradresse ADRESSE\\
+\hline
+5 - Multiplikation & MULC & 50 & KONSTANTE & Multipliziert den Wert im Akkumulator mit dem Wert KONSTANTE\\
+& MULA & 51 & ADRESSE & Multipliziert den Wert im Akkumulator mit dem Wert aus der Speicheradresse ADRESSE\\
+\hline
+6 - Division & DIVC & 60 & KONSTANTE & Dividiert den Wert im Akkumulator durch den Wert KONSTANTE\\
+& DIVA & 61 & ADRESSE & Dividiert den Wert im Akkumulator durch den Wert aus der Speicheradresse ADRESSE\\
+\hline
+7 - Modulo & MODC & 70 & KONSTANTE & Bildet den Rest der Division des Wertes im Akkumulator durch den Wert KONSTANTE\\
+& MODA & 71 & ADRESSE & Bildet den Rest der Division des Wertes im Akkumulator durch den Wert aus der Speicheradresse ADRESSE\\
+\hline
+8 - I/O & INP & 80 & QUELLE & Lädt den nächsten Wert des Eingabegerätes, das an den Anschluss QUELLE angeschlossen ist\\
+& OUT & 81 & ZIEL & Gibt den Wert im Akkumulator an das Ausgabegerät, das an den Anschluss ZIEL angeschlossen ist\\
+
+\end{tabular}
+\end{table}
+
+\end{document}

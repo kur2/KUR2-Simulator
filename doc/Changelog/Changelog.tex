@@ -1,0 +1,45 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+
+
+\usepackage[left=2.2 cm,right=2.2 cm,top=1.5cm,bottom=2.0cm]{geometry}
+
+
+\begin{document}
+\begin{center}
+\section*{KUR2}
+\subsection*{Versionshistorie}
+\end{center}
+
+\hrule
+\vspace{.5cm}
+
+\subsubsection*{Version 1.1:}
+\begin{itemize}
+\item \textbf{Feature:} Größe des Speichers kann durch das Argument \textit{memory=<Speichergröße>} angepasst werden
+\item \textbf{Bugfix:} Programm hängte sich beim Zugriff auf nicht existente Speicherzellen auf. Jetzt gibt es eine Fehlermeldung aus, bevor es sich beendet.
+\end{itemize}
+
+\subsubsection*{Version 1.2:}
+\begin{itemize}
+	\item \textbf{Misc:} Standardquelle für Programme ist jetzt \textit{res/progs/defaultProgram.txt}
+	\item \textbf{Feature:} Optionen für \textit{Programmkontrolle}:
+		\begin{itemize}
+			\item \textit{Programm laden} erlaubt gezielt die Quelldatei zu bestimmen (Nicht mehr nur über \textit{res/progs/testProgram.txt})
+			\item \textit{Maschine zurücksetzen} erlaubt das aktuelle Programm erneut auszuführen, ohne das Programm neu starten zu müssen
+		\end{itemize}
+	\item \textbf{Feature:} Optionen für \textit{stepping}:
+		\begin{itemize}
+			\item Einzelschritt ausführen
+			\item Mikroinstruktion ausführen
+			\item Maschinenbefehl ausführen
+		\end{itemize}
+	\item \textbf{Misc:} \textit{Look and Feel} wird vom OS bestimmt
+\end{itemize}
+
+\end{document}
