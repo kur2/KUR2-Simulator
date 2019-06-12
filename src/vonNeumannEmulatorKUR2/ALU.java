@@ -1,7 +1,5 @@
 package vonNeumannEmulatorKUR2;
 
-import vonNeumannEmulatorKUR2.MicroPrograms.MicroCode;
-
 public class ALU {
 	private int accumulator;
 	private int operand;
@@ -35,37 +33,29 @@ public class ALU {
 				return;
 			}
 			
-			switch((String)controlPipeConnectorControl.getValue()){
-			case MicroCode.aluWriteToMem:
+			String controlToken=(String)getControlPipeConnectorControl().getValue();
+			if(controlToken==null)
+				controlToken="";
+			if(controlToken.equals(MicroPrograms.aluWriteToMem)) {
 				dataPipeMemory.setValue(accumulator);
-				break;
-			case MicroCode.aluWriteToOutput:
+			}else if(controlToken.equals(MicroPrograms.aluWriteToOutput)) {
 				dataPipeOutput.setValue(accumulator);
-				break;
-			case MicroCode.aluWriteToControl:
+			}else if(controlToken.equals(MicroPrograms.aluWriteToControl)) {
 				dataPipeControl.setValue(accumulator);
-				break;
-			case MicroCode.aluReset:
+			}else if(controlToken.equals(MicroPrograms.aluReset)) {
 				accumulator=0;
-				break;
-			case MicroCode.aluPush:
+			}else if(controlToken.equals(MicroPrograms.aluPush)) {
 				accumulator=operand;
-				break;
-			case MicroCode.aluAdd:
+			}else if(controlToken.equals(MicroPrograms.aluAdd)) {
 				accumulator+=operand;
-				break;
-			case MicroCode.aluSub:
+			}else if(controlToken.equals(MicroPrograms.aluSub)) {
 				accumulator-=operand;
-				break;
-			case MicroCode.aluMul:
+			}else if(controlToken.equals(MicroPrograms.aluMul)) {
 				accumulator*=operand;
-				break;
-			case MicroCode.aluDiv:
+			}else if(controlToken.equals(MicroPrograms.aluDiv)) {
 				accumulator/=operand;
-				break;
-			case MicroCode.aluMod:
+			}else if(controlToken.equals(MicroPrograms.aluMod)) {
 				accumulator%=operand;
-				break;
 			}
 		}
 	}

@@ -2,8 +2,6 @@ package vonNeumannEmulatorKUR2;
 
 import javax.swing.JOptionPane;
 
-import vonNeumannEmulatorKUR2.MicroPrograms.MicroCode;
-
 public class InputUnit {
 	private boolean ready;
 	
@@ -20,7 +18,7 @@ public class InputUnit {
 			
 			if(controlPipeConnectorControl.getValue()==null){
 				dataPipeALU.setValue(null);
-			}else if(controlPipeConnectorControl.getValue()==MicroCode.inWriteToALU){
+			}else if(controlPipeConnectorControl.getValue().equals(MicroPrograms.inWriteToALU)){
 				String input=null;
 				int inputValue=-1;
 				boolean inputAccepted=false;
@@ -38,7 +36,7 @@ public class InputUnit {
 //				if(input!=null){
 				dataPipeALU.setValue(inputValue);
 //				}
-			}else if(controlPipeConnectorControl.getValue()==MicroCode.inStop){
+			}else if(controlPipeConnectorControl.getValue().equals(MicroPrograms.inStop)){
 				dataPipeALU.setValue(null);
 			}
 		}

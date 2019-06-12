@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import controller.LocalizationController;
 import controller.MainController;
+import controller.LocalizationController.Language;
 import model.RenderConstants;
 
 public class KUR2Display {
@@ -29,6 +31,8 @@ public class KUR2Display {
 	
 	public KUR2Display(boolean fullscreen, int memorySize){
 		initializeWindow(fullscreen);
+		
+		LocalizationController.setLanguage(Language.ENGLISH);
 		
 		mainController=new MainController(this, memorySize);
 		

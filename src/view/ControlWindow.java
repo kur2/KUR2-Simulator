@@ -22,7 +22,7 @@ import javax.swing.event.ChangeListener;
 
 import controller.MainController;
 import model.Constants;
-import model.RenderConstants;
+import model.LocalizedStrings;
 
 public class ControlWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -40,7 +40,7 @@ public class ControlWindow extends JFrame {
 	public ControlWindow(MainController mainController){
 		this.mainController=mainController;
 		
-		setTitle(RenderConstants.CONTROL_WINDOW_CAPTION);
+		setTitle(LocalizedStrings.guiFrameCaption);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -74,7 +74,7 @@ public class ControlWindow extends JFrame {
 	
 	private void initProgramControl() {
 		JPanel programPanel=new JPanel();
-		tabbedPane.add("Programmkontrolle", programPanel);
+		tabbedPane.add(LocalizedStrings.programControlTabName, programPanel);
 		GridBagLayout gbl_programPanel = new GridBagLayout();
 		gbl_programPanel.columnWidths = new int[]{0, 120, 0};
 		gbl_programPanel.rowHeights = new int[]{0, 0, 0, 0};
@@ -82,14 +82,14 @@ public class ControlWindow extends JFrame {
 		gbl_programPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		programPanel.setLayout(gbl_programPanel);
 		
-		JButton btnProgrammLaden = new JButton("Programm laden");
+		JButton btnProgrammLaden = new JButton(LocalizedStrings.programControlLoad);
 		btnProgrammLaden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				chooseProgram();
 			}
 		});
 		
-		JLabel label = new JLabel("Programm im Speicher:");
+		JLabel label = new JLabel(LocalizedStrings.programControlProgramInMemory);
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.anchor = GridBagConstraints.WEST;
 		gbc_label.insets = new Insets(0, 0, 5, 5);
@@ -112,7 +112,7 @@ public class ControlWindow extends JFrame {
 		gbc_btnProgrammLaden.gridy = 1;
 		programPanel.add(btnProgrammLaden, gbc_btnProgrammLaden);
 		
-		JButton btnProgrammZurcksetzen = new JButton("Maschine zurücksetzen");
+		JButton btnProgrammZurcksetzen = new JButton(LocalizedStrings.programControlReset);
 		btnProgrammZurcksetzen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetProgram();
@@ -129,7 +129,7 @@ public class ControlWindow extends JFrame {
 	
 	private void initSimulationControl() {
 		JPanel simulationPanel = new JPanel();
-		tabbedPane.addTab("Simulationskontrolle", simulationPanel);
+		tabbedPane.addTab(LocalizedStrings.simulationControlTabName, simulationPanel);
 		GridBagLayout gbl_simulationPanel = new GridBagLayout();
 		gbl_simulationPanel.columnWidths = new int[]{0, 0, 0};
 		gbl_simulationPanel.rowHeights = new int[]{0, 0, 0, 0};
@@ -137,7 +137,7 @@ public class ControlWindow extends JFrame {
 		gbl_simulationPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		simulationPanel.setLayout(gbl_simulationPanel);
 		
-		JButton btnSimulationStarten = new JButton("Simulation starten");
+		JButton btnSimulationStarten = new JButton(LocalizedStrings.simulationControlStart);
 		btnSimulationStarten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				startSimulation();
@@ -150,7 +150,7 @@ public class ControlWindow extends JFrame {
 		gbc_btnSimulationStarten.gridy = 0;
 		simulationPanel.add(btnSimulationStarten, gbc_btnSimulationStarten);
 		
-		JButton btnSimulationPausieren = new JButton("Simulation pausieren");
+		JButton btnSimulationPausieren = new JButton(LocalizedStrings.simulationControlPause);
 		btnSimulationPausieren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pauseSimulation();
@@ -163,7 +163,7 @@ public class ControlWindow extends JFrame {
 		gbc_btnSimulationPausieren.gridy = 0;
 		simulationPanel.add(btnSimulationPausieren, gbc_btnSimulationPausieren);
 		
-		JLabel lblSimulationsgeschwindigkeit = new JLabel("Simulationsgeschwindigkeit:");
+		JLabel lblSimulationsgeschwindigkeit = new JLabel(LocalizedStrings.simulationControlSpeed);
 		GridBagConstraints gbc_lblSimulationsgeschwindigkeit = new GridBagConstraints();
 		gbc_lblSimulationsgeschwindigkeit.anchor = GridBagConstraints.WEST;
 		gbc_lblSimulationsgeschwindigkeit.insets = new Insets(0, 0, 5, 5);
@@ -199,7 +199,7 @@ public class ControlWindow extends JFrame {
 	
 	private void initSteppingControl() {
 		JPanel steppingPanel=new JPanel();
-		tabbedPane.add("Stepping", steppingPanel);
+		tabbedPane.add(LocalizedStrings.steppingTabName, steppingPanel);
 		GridBagLayout gbl_steppingPanel = new GridBagLayout();
 		gbl_steppingPanel.columnWidths = new int[]{0, 0};
 		gbl_steppingPanel.rowHeights = new int[]{0, 0, 0, 0};
@@ -207,14 +207,14 @@ public class ControlWindow extends JFrame {
 		gbl_steppingPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		steppingPanel.setLayout(gbl_steppingPanel);
 		
-		JButton btnNchstenBefehlAusfhren = new JButton("Maschinenbefehl ausführen");
+		JButton btnNchstenBefehlAusfhren = new JButton(LocalizedStrings.steppingMachineInstruction);
 		btnNchstenBefehlAusfhren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				executeInstruction();
 			}
 		});
 		
-		JButton btnEinzelschrittAusfhren = new JButton("Einzelschritt ausführen");
+		JButton btnEinzelschrittAusfhren = new JButton(LocalizedStrings.steppingStep);
 		btnEinzelschrittAusfhren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				executeStep();
@@ -227,7 +227,7 @@ public class ControlWindow extends JFrame {
 		gbc_btnEinzelschrittAusfhren.gridy = 0;
 		steppingPanel.add(btnEinzelschrittAusfhren, gbc_btnEinzelschrittAusfhren);
 		
-		JButton btnMicroinstruktionAusfhren = new JButton("Mikroinstruktion ausführen");
+		JButton btnMicroinstruktionAusfhren = new JButton(LocalizedStrings.steppingMicroinstruction);
 		btnMicroinstruktionAusfhren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				executeMicroInstruction();
@@ -257,7 +257,7 @@ public class ControlWindow extends JFrame {
 		if(programLocation!=null) {
 			mainController.getKur2().resetMachine();
 			mainController.getKur2().loadProgram(programLocation);
-			JOptionPane.showMessageDialog(this, "Maschine zurückgesetzt", "KUR2", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, LocalizedStrings.dialogMachineReset, "KUR2", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
@@ -269,7 +269,7 @@ public class ControlWindow extends JFrame {
 	}
 	
 	private void loadProgram(String path) {
-		loadProgram(path, "Programm geladen");
+		loadProgram(path, LocalizedStrings.dialogProgramLoaded);
 	}
 	
 	private void loadProgram(String path, String message) {

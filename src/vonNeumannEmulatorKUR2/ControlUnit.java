@@ -3,7 +3,6 @@ package vonNeumannEmulatorKUR2;
 import java.util.ArrayList;
 
 import vonNeumannEmulatorKUR2.MicroPrograms.InstructionSet;
-import vonNeumannEmulatorKUR2.MicroPrograms.MicroCode;
 
 public class ControlUnit {
 	private KUR2 kur2;
@@ -83,18 +82,18 @@ public class ControlUnit {
 	}
 	
 	private void executeMicrocodeInstruction(String microInstruction){
-		switch(microInstruction){
+		String controlToken=microInstruction;
+		if(controlToken==null)
+			controlToken="";
+		if(controlToken.equals(
 		//internal
-		case MicroCode.intProgCounterToMemAdd:
+		MicroPrograms.intProgCounterToMemAdd)) {
 			addressPipeMemory.setValue(programCounter);
-			break;
-		case MicroCode.intProgCounterIncrease:
+		}else if(controlToken.equals(MicroPrograms.intProgCounterIncrease)) {
 			programCounter++;
-			break;
-		case MicroCode.intDecode:
+		}else if(controlToken.equals(MicroPrograms.intDecode)){
 			currentMicroProgram=MicroPrograms.getMicroProgramForInstruction(dataField);
-			break;
-		case MicroCode.intHalt:
+		}else if(controlToken.equals(MicroPrograms.intHalt)){
 			halted=true;
 			if(printMemDumpOnHalt){
 				kur2.printMemoryDump();
@@ -102,78 +101,61 @@ public class ControlUnit {
 			}
 			if(systemExitOnHalt)
 				System.exit(0);
-			break;
-		case MicroCode.intDataToProgCounter:
+		}else if(controlToken.equals(MicroPrograms.intDataToProgCounter)){
 			programCounter=dataField;
-			break;
-		case MicroCode.intDataEqualsNull:
+		}else if(controlToken.equals(MicroPrograms.intDataEqualsNull)){
 			if(dataField!=0)
 				interruptMicroProg=true;
-			break;
-		case MicroCode.intDataNotNull:
+		}else if(controlToken.equals(MicroPrograms.intDataNotNull)){
 			if(dataField==0)
 				interruptMicroProg=true;
-			break;
-		case MicroCode.intDataGreaterNull:
+		}else if(controlToken.equals(MicroPrograms.intDataGreaterNull)){
 			if(dataField<=0)
 				interruptMicroProg=true;
-			break;
-		case MicroCode.intDataLessNull:
+		}else if(controlToken.equals(MicroPrograms.intDataLessNull)){
 			if(dataField>=0)
 				interruptMicroProg=true;
-			break;
-		case MicroCode.intDataToMemAdd:
+		}else if(controlToken.equals(MicroPrograms.intDataToMemAdd)){
 			addressPipeMemory.setValue(dataField);
-			break;
-		case MicroCode.intDataToInputAdd:
+		}else if(controlToken.equals(MicroPrograms.intDataToInputAdd)){
 			addressPipeInput.setValue(dataField);
-			break;
-		case MicroCode.intDataToOutputAdd:
+		}else if(controlToken.equals(MicroPrograms.intDataToOutputAdd)){
 			addressPipeOutput.setValue(dataField);
-			break;
 		
 		//input
-		case MicroCode.inWriteToALU:
+		}else if(controlToken.equals(MicroPrograms.inWriteToALU)){
 			controlPipeInput.setValue(microInstruction);
-			break;
-		case MicroCode.inStop:
+		}else if(controlToken.equals(MicroPrograms.inStop)){
 			controlPipeInput.setValue(null);
-			break;
 		
 		//output
-		case MicroCode.outReadFromALU:
+		}else if(controlToken.equals(MicroPrograms.outReadFromALU)){
 			controlPipeOutput.setValue(microInstruction);
-			break;
-		case MicroCode.outStop:
+		}else if(controlToken.equals(MicroPrograms.outStop)){
 			controlPipeOutput.setValue(null);
-			break;
 		
 		//memory
-		case MicroCode.memLoadToControl:
-		case MicroCode.memLoadToALU:
-		case MicroCode.memStoreFromAlu:
+		}else if(controlToken.equals(MicroPrograms.memLoadToControl)
+				|| controlToken.equals(MicroPrograms.memLoadToALU)
+				|| controlToken.equals(MicroPrograms.memStoreFromAlu)) {
 			controlPipeMemory.setValue(microInstruction);
-			break;
-		case MicroCode.memStop:
+		}else if(controlToken.equals(MicroPrograms.memStop)){
 			controlPipeMemory.setValue(null);
-			break;
 		
 		//alu
-		case MicroCode.aluWriteToControl:
-		case MicroCode.aluWriteToMem:
-		case MicroCode.aluWriteToOutput:
-		case MicroCode.aluReset:
-		case MicroCode.aluPush:
-		case MicroCode.aluAdd:
-		case MicroCode.aluSub:
-		case MicroCode.aluMul:
-		case MicroCode.aluDiv:
-		case MicroCode.aluMod:
+		}else if(controlToken.equals(MicroPrograms.aluWriteToControl)
+				|| controlToken.equals(MicroPrograms.aluWriteToMem)
+				|| controlToken.equals(MicroPrograms.aluWriteToOutput)
+				|| controlToken.equals(MicroPrograms.aluReset)
+				|| controlToken.equals(MicroPrograms.aluPush)
+				|| controlToken.equals(MicroPrograms.aluAdd)
+				|| controlToken.equals(MicroPrograms.aluSub)
+				|| controlToken.equals(MicroPrograms.aluMul)
+				|| controlToken.equals(MicroPrograms.aluDiv)
+				|| controlToken.equals(MicroPrograms.aluMod)){
 			controlPipeALU.setValue(microInstruction);
-			break;
-		case MicroCode.aluStop:
+		}else if(controlToken.equals(MicroPrograms.aluStop)){
 			controlPipeALU.setValue(null);
-			break;
 		}
 	}
 	

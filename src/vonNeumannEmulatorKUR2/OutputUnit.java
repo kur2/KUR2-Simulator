@@ -2,8 +2,6 @@ package vonNeumannEmulatorKUR2;
 
 import javax.swing.JOptionPane;
 
-import vonNeumannEmulatorKUR2.MicroPrograms.MicroCode;
-
 public class OutputUnit {
 	private PipeConnector dataPipeConnectorALU, addressPipeConnectorControl, controlPipeConnectorControl;
 	
@@ -17,7 +15,7 @@ public class OutputUnit {
 		if(!ready){
 			ready=true;
 			
-			if(controlPipeConnectorControl.getValue()==MicroCode.outReadFromALU){
+			if(MicroPrograms.outReadFromALU.equals(controlPipeConnectorControl.getValue())){
 				JOptionPane.showMessageDialog(null, "Ausgegebener Wert: "+(int)dataPipeConnectorALU.getValue(), "Ausgabe auf Port "+(int)addressPipeConnectorControl.getValue(), JOptionPane.PLAIN_MESSAGE);
 			}
 		}

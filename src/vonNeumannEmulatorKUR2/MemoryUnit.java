@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import vonNeumannEmulatorKUR2.MicroPrograms.MicroCode;
-
 public class MemoryUnit {
 	protected Pipe dataPipeALU, dataPipeControl;
 	protected PipeConnector dataPipeConnectorALU, addressPipeConnectorControl, controlPipeConnectorControl;
@@ -34,14 +32,14 @@ public class MemoryUnit {
 				return;
 			}
 			
-			switch((String)controlPipeConnectorControl.getValue()){
-			case MicroCode.memLoadToControl:
+			String controlToken=(String)controlPipeConnectorControl.getValue();
+			if(controlToken==null)
+				controlToken="";
+			if(controlToken.equals(MicroPrograms.memLoadToControl)) {
 				dataPipeControl.setValue(memory.get((int)addressPipeConnectorControl.getValue()));
-				break;
-			case MicroCode.memLoadToALU:
+			}else if(controlToken.equals(MicroPrograms.memLoadToALU)){
 				dataPipeALU.setValue(memory.get((int)addressPipeConnectorControl.getValue()));
-				break;
-			case MicroCode.memStoreFromAlu:
+			}else if(controlToken.equals(MicroPrograms.memStoreFromAlu)) {
 				memory.set((int)addressPipeConnectorControl.getValue(), (int)dataPipeConnectorALU.getValue());
 			}
 		}

@@ -5,12 +5,13 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import model.LocalizedStrings;
 import vonNeumannEmulatorKUR2.ALU;
 import vonNeumannEmulatorKUR2.ControlUnit;
 import vonNeumannEmulatorKUR2.InputUnit;
 import vonNeumannEmulatorKUR2.KUR2;
 import vonNeumannEmulatorKUR2.MemoryUnit;
-import vonNeumannEmulatorKUR2.MicroPrograms.MicroCode;
+import vonNeumannEmulatorKUR2.MicroPrograms;
 import vonNeumannEmulatorKUR2.OutputUnit;
 
 public class EmulatorPainter extends Painter{
@@ -56,7 +57,7 @@ public class EmulatorPainter extends Painter{
 		drawRect(x, y, controlUnitRectangle.width, controlUnitRectangle.height);
 		ControlUnit controlUnit=kur2.getControlUnit();
 		
-		drawString("STEUERWERK", x+5, y+15);
+		drawString(LocalizedStrings.controlName, x+5, y+15);
 		y+=10;
 		
 //		//decoder
@@ -78,11 +79,11 @@ public class EmulatorPainter extends Painter{
 		drawString("M", micX+3, micY+12*8+6);
 		for(int i=0; i<controlUnit.getInstructionFetchingMiroProgram().size(); i++){
 			setColor(controlUnit.isInstructionFetching() && i==controlUnit.getMicroProgramCounter()?Color.RED:Color.WHITE);
-			drawString(controlUnit.getInstructionFetchingMiroProgram().get(i), micX+15, micY+12+12*i);
+			drawString(LocalizedStrings.getInstructionText(controlUnit.getInstructionFetchingMiroProgram().get(i)), micX+15, micY+12+12*i);
 		}
 		for(int i=0; i<controlUnit.getCurrentMicroProgram().size(); i++){
 			setColor(!controlUnit.isInstructionFetching() && i==controlUnit.getMicroProgramCounter()?Color.RED:Color.WHITE);
-			drawString(controlUnit.getCurrentMicroProgram().get(i), micX+15, micY+12*8+6+12*i);
+			drawString(LocalizedStrings.getInstructionText(controlUnit.getCurrentMicroProgram().get(i)), micX+15, micY+12*8+6+12*i);
 		}
 		setColor(Color.WHITE);
 		drawLine(micX, micY+12*7+4, micX+micW, micY+12*7+4);
@@ -114,7 +115,7 @@ public class EmulatorPainter extends Painter{
 		
 		setColor(Color.WHITE);
 		drawRect(x, y, memoryUnitRectangle.width, memoryUnitRectangle.height);
-		drawString("SPEICHERWERK", x+5, y+15);
+		drawString(LocalizedStrings.memoryName, x+5, y+15);
 		y+=10;
 		
 		//add
@@ -139,7 +140,11 @@ public class EmulatorPainter extends Painter{
 		int adress=memoryUnit.getCurrentAddress();
 		drawRect(memX, memY, 19*7+16, 7*16+16);
 		drawLine(memX, memY+16, memX+19*7+16, memY+16);
-		drawString("ADRESSE     INHALT  ", memX+4, memY+12);
+		String header=LocalizedStrings.memoryAddress;
+		while(header.length()<12)
+			header+=" ";
+		header+=LocalizedStrings.memoryContent;
+		drawString(header, memX+4, memY+12);
 		drawLine(memX+8*7+8, memY, memX+8*7+8, memY+7*16+16);
 		for(int i=0; i<7; i++){
 			int memAdd=adress-3+i;
@@ -158,7 +163,7 @@ public class EmulatorPainter extends Painter{
 		int width=aluRectangle.width;
 		int height=aluRectangle.height;
 		drawRect(x, y, width, height);
-		drawString("RECHENWERK", x+5, y+15);
+		drawString(LocalizedStrings.aluName, x+5, y+15);
 		y+=10;
 		
 //		//inst
@@ -187,27 +192,22 @@ public class EmulatorPainter extends Painter{
 		int aluY=y+62;
 		drawRect(aluX, aluY, 11*7+8, 32);
 		String s="   ";
-		if(alu.getControlPipeConnectorControl().getValue()!=null)
-			switch((String)alu.getControlPipeConnectorControl().getValue()){
-			case MicroCode.aluAdd:
+		if(alu.getControlPipeConnectorControl().getValue()!=null) {
+			String controlToken=(String)alu.getControlPipeConnectorControl().getValue();
+			if(controlToken.equals(MicroPrograms.aluAdd)) {
 				s+="+";
-				break;
-			case MicroCode.aluSub:
+			}else if(controlToken.equals(MicroPrograms.aluSub)) {
 				s+="-";
-				break;
-			case MicroCode.aluDiv:
+			}else if(controlToken.equals(MicroPrograms.aluDiv)) {
 				s+=":";
-				break;
-			case MicroCode.aluMod:
+			}else if(controlToken.equals(MicroPrograms.aluMod)) {
 				s+="%";
-				break;
-			case MicroCode.aluMul:
+			}else if(controlToken.equals(MicroPrograms.aluMul)) {
 				s+="*";
-				break;
-			case MicroCode.aluPush:
+			}else if(controlToken.equals(MicroPrograms.aluPush)) {
 				s+="<-";
-				break;
 			}
+		}
 		drawString(s, aluX+4, aluY+19);
 	}
 	
@@ -219,7 +219,7 @@ public class EmulatorPainter extends Painter{
 		
 		setColor(Color.WHITE);
 		drawRect(x, y, inWidth, inHeight);
-		drawString("EINGABEWERK", x+5, y+15);
+		drawString(LocalizedStrings.inputName, x+5, y+15);
 		y+=10;
 		
 		//add
@@ -239,7 +239,7 @@ public class EmulatorPainter extends Painter{
 		
 		setColor(Color.WHITE);
 		drawRect(x, y, outWidth, outHeight);
-		drawString("AUSGABEWERK", x+5, y+15);
+		drawString(LocalizedStrings.outputName, x+5, y+15);
 		y+=10;
 		
 		//add
